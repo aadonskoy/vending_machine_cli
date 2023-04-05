@@ -2,7 +2,6 @@
 
 require "./lib/products_collection"
 require "./lib/coins_collection"
-require "./lib/calc_change_service"
 require "./lib/order"
 require "./lib/checkout"
 
@@ -30,7 +29,7 @@ class App
       )
 
       puts "\n"
-      puts "~~== Vending Machine ==~~\n"
+      puts "\e[32m~~== Vending Machine ==~~\e[0m\n"
 
       loop do
         puts "\nSelect an item:"
@@ -50,7 +49,7 @@ class App
         end
 
         if state == :checkout
-          Checkout.new(products, machine_coins, order.selected).process
+          Checkout.new(products, machine_coins, order).process
           state = :order
         end
 

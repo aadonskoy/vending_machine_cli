@@ -1,12 +1,11 @@
 #frozen_string_literal: true
 
 class Order
-  attr_reader :selected, :error_message
+  attr_reader :selected
 
   def initialize(products)
     @products = products
     @selected = nil
-    @error_message = nil
   end
 
   def add_item(product_id)

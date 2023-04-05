@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+require "./lib/calc_change_service"
 
 class Checkout
-  def initialize(products, machine_coins, product)
+  def initialize(products, machine_coins, order)
     @products = products
-    @product = product
+    @product = order.selected
     @machine_coins = machine_coins
     @user_coins = CoinsCollection.new
   end
@@ -33,23 +34,18 @@ class Checkout
     loop do
       coin_id = gets.chomp.to_i
       put_coin(coin_id - 1)
-      puts "Total: #{@user_coins.total}"
 
-      @user_total = @user_coins.total
-      if @user_total >= @product.price
-        change_total = @user_total - @product.price
-        change = CalcChangeService.new(@machine_coins, change_total).change
-        if change[0] == :result
-          @machine_coins.substract_collection(change[1])
-          @products.sell(@product)
-          @machine_coins.add_collection(@user_coins)
-          puts "\n*** Thank you! You've bought #{@product.name} ***"
-          user_change_message(change[1])
-        else
-          no_change_message
-        end
-        break
+      user_total = @user_coins.total
+      puts "Your coins total: #{user_total}"
+      next unless user_total >= @product.price
+
+      if (change = try_sell_with_change(user_total))
+        puts "\n*** Thank you! You've bought #{@product.name} ***"
+        user_change_message(change)
+      else
+        no_change_message
       end
+      break
     end
   end
 
@@ -61,5 +57,20 @@ class Checkout
     end
 
     @user_coins.add(coin)
+  end
+
+  def try_sell_with_change(user_total)
+    change_total = user_total - @product.price
+    change = CalcChangeService.new(@machine_coins, change_total).change
+
+    if change[0] == :result
+      @machine_coins.substract_collection(change[1])
+      @products.sell(@product)
+      @machine_coins.add_collection(@user_coins)
+      change[1]
+    else
+      no_change_message
+      false
+    end
   end
 end
