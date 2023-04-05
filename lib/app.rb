@@ -10,7 +10,16 @@ class App
   class << self
     def run
       state = :order
-      products = ProductsCollection.new
+      products = ProductsCollection.new(
+        [
+          ["Cola", 2.0, 7],
+          ["Chips", 2.25, 4],
+          ["Candy", 1.75, 4],
+          ["Water", 0.5, 5],
+          ["Juice", 2.25, 3],
+          ["Sandwich", 3.0, 2]
+        ]
+      )
       machine_coins = CoinsCollection.new(
         0.25 => 8,
         0.5 => 5,

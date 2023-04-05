@@ -89,4 +89,44 @@ describe CoinsCollection do
       expect { coins.add(0.1) }.to raise_error("unknown 0.1")
     end
   end
+
+  describe "present_coins" do
+    it "returns only present coins" do
+      expect(coins.present_coins).to eq(0.25 => 1, 0.5 => 2)
+    end
+  end
+
+  describe "total" do
+    it "returns the total value of coins" do
+      expect(coins.total).to eq(1.25)
+    end
+  end
+
+  describe "deniminates" do
+    it "returns the denominations" do
+      expect(coins.denominates).to eq([0.25, 0.5, 1.0, 2.0, 3.0, 5.0])
+    end
+  end
+
+  describe "denominates_to_str" do
+    it "returns the denominations as a string" do
+      expect(coins.denominates_to_str)
+        .to eq("1. 0.25\n2. 0.5\n3. 1.0\n4. 2.0\n5. 3.0\n6. 5.0")
+    end
+  end
+
+  describe "coins_to_str" do
+    it "returns the coins as a string" do
+      expect(coins.coins_to_str)
+        .to eq("0.25: 1\n0.5: 2\n1.0: 0\n2.0: 0\n3.0: 0\n5.0: 0")
+      expect(coins.coins_to_str(false)).to eq("0.25: 1\n0.5: 2")
+    end
+  end
+
+  describe "coin_by_id" do
+    it "returns the coin by id" do
+      expect(coins.coin_by_id(1)).to eq(0.5)
+      expect(coins.coin_by_id(10_000)).to be_nil
+    end
+  end
 end

@@ -75,8 +75,4 @@ class CoinsCollection
   def coin_by_id(coin_id)
     denominates[coin_id]
   end
-
-  def present?
-    coins.any?
-  end
 end

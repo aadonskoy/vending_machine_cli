@@ -1,4 +1,4 @@
-# Title: Vending Machine
+# Vending Machine
 An example of a vending machine in Ruby with ability to select product, insert coins with predefined denominations, and get change back.
 
 ## How to run
