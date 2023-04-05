@@ -67,12 +67,13 @@ class CoinsCollection
 
   def denominates_to_str
     denominates.map.with_index do |den, idx|
-      "#{idx}. #{den}"
+      "#{idx + 1}. #{den}"
     end.join("\n")
   end
 
-  def coins_to_str
-    @coins.map { |k, v| "#{k}: #{v}" }.join("\n")
+  def coins_to_str(full_collection = true)
+    show_coins = full_collection ? coins : present_coins
+    show_coins.map { |k, v| "#{k}: #{v}" }.join("\n")
   end
 
   def coin_by_id(coin_id)

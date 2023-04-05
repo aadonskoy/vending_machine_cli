@@ -31,7 +31,7 @@ class ProductsCollection
 
   def to_str
     @collection.map.with_index do |product, idx|
-      "#{idx}. #{product.name}: $#{product.price} - #{product.quantity} left"
+      "#{idx + 1}. #{product.name}: $#{product.price} - #{product.quantity} left"
     end.join("\n")
   end
 end

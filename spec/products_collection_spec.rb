@@ -24,7 +24,7 @@ describe ProductsCollection do
     subject { custom_collection.to_str }
 
     it do
-      expect(subject).to eq("0. Water: $0.5 - 5 left\n1. Milk: $2.0 - 2 left")
+      expect(subject).to eq("1. Water: $0.5 - 5 left\n2. Milk: $2.0 - 2 left")
     end
   end
 end
