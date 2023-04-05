@@ -33,24 +33,20 @@ class CoinsCollection
   end
 
   def substract_collection(coins_collection)
+    new_coins = coins.dup
     @coins.each do |k, _|
-      raise "can't be below zero" if coins[k] < coins_collection[k]
+      raise "can't be below zero" if new_coins[k] < coins_collection[k]
 
-      coins[k] -= coins_collection[k]
+      new_coins[k] -= coins_collection[k]
     end
+
+    @coins = new_coins
   end
 
   def add(denomination, count = 1)
     raise "unknown #{denomination}" unless coins.key?(denomination.to_f)
 
     @coins[denomination.to_f] += count
-  end
-
-  def substraction(denomination, count = 1)
-    raise "unknown #{denominate}" unless coins.key?(denomination.to_f)
-    return 0 if @coins[denomination.to_f].zero?
-
-    @coins[denomination.to_f] -= count
   end
 
   def present_coins

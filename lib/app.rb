@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "./products_collection"
-require "./coins_collection"
-require "./calc_change_service"
-require "./order"
-require "./checkout"
+require "./lib/products_collection"
+require "./lib/coins_collection"
+require "./lib/calc_change_service"
+require "./lib/order"
+require "./lib/checkout"
 
 class App 
   class << self
@@ -50,5 +50,3 @@ class App
     end
   end
 end
-
-App.run
